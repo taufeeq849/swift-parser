@@ -17,7 +17,7 @@
 
 /**
  * MT940 parser
- * @module @centrapay/swift-parser
+ * @module @finlyncerp/swift-parser
  */
 
 const Parser  = require('./lib/parser');

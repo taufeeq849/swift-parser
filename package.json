@@ -1,5 +1,5 @@
 {
-  "name": "@centrapay/swift-parser",
+  "name": "@finlyncerp/swift-parser",
   "version": "1.0.0",
   "description": "Swift financial message parser (MT940, MT942)",
   "main": "index.js",
@@ -21,8 +21,8 @@
   ],
   "author": "Alexander Tsybulsky",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/centrapay/swift-parser",
-  "repository": "https://github.com/centrapay/swift-parser.git",
+  "homepage": "https://github.com/finlyncerp/swift-parser",
+  "repository": "https://github.com/finlyncerp/swift-parser.git",
   "devDependencies": {
     "eslint": "^7.28.0",
     "eslint-plugin-no-only-tests": "^2.6.0",
