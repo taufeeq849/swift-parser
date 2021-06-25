@@ -61,7 +61,7 @@ describe('Helpers', () => {
       });
 
       it('should fail if wrong indicator passed / reversal', () => {
-        expect(helpers.Amount.parse.bind(null, 'XZ', '123,34')).toThrow(/Wrong reversal/);
+        expect(helpers.Amount.parse.bind(null, 'XZ', '123,34')).toThrow(/reversal\/expected/);
       });
 
       it('should fail if wrong indicator passed / reversal 2', () => {

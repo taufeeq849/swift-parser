@@ -120,6 +120,7 @@ function expectedMt940Statement() {
         detailSegments: [ 'LINE1\nLINE2' ],
         extraDetails: '',
         fundsCode: '',
+        creditDebitIndicator: 'C'
       }
     ]};
 }
@@ -376,6 +377,7 @@ describe('Parser', () => {
             detailSegments: [ 'LINE1' ],
             extraDetails: '',
             fundsCode: '',
+            creditDebitIndicator: 'C'
           },
           {
             amount: BigNumber(200.00),
@@ -390,6 +392,7 @@ describe('Parser', () => {
             extraDetails: '',
             fundsCode: '',
             nonSwift: 'Hello world',
+            creditDebitIndicator: 'C'
           },
           {
             amount: BigNumber(300.00),
@@ -404,6 +407,7 @@ describe('Parser', () => {
             extraDetails: '',
             fundsCode: '',
             nonSwift: 'Hello\nbank info',
+            creditDebitIndicator: 'C'
           },
         ]});
     });

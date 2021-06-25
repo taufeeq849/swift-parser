@@ -27,6 +27,7 @@ Array [
       Transaction {
         "amount": "-369",
         "bankReference": "",
+        "creditDebitIndicator": "D",
         "currency": "PLN",
         "date": 2017-01-03T00:00:00.000Z,
         "detailSegments": Array [
@@ -43,6 +44,7 @@ Array [
       Transaction {
         "amount": "-15.07",
         "bankReference": "",
+        "creditDebitIndicator": "D",
         "currency": "PLN",
         "date": 2017-01-04T00:00:00.000Z,
         "detailSegments": Array [
@@ -59,6 +61,7 @@ Array [
       Transaction {
         "amount": "-123",
         "bankReference": "",
+        "creditDebitIndicator": "D",
         "currency": "PLN",
         "date": 2017-01-10T00:00:00.000Z,
         "detailSegments": Array [
@@ -100,6 +103,7 @@ UL. SPOKOJNA 3",
       Transaction {
         "amount": "-25",
         "bankReference": "",
+        "creditDebitIndicator": "D",
         "currency": "PLN",
         "date": 2017-01-31T00:00:00.000Z,
         "detailSegments": Array [
@@ -197,6 +201,7 @@ Array [
       Transaction {
         "amount": "500",
         "bankReference": "B4E07XM00J000023",
+        "creditDebitIndicator": "C",
         "currency": "EUR",
         "date": 2014-05-07T00:00:00.000Z,
         "detailSegments": Array [
@@ -244,6 +249,7 @@ WANT DAT IS ZOALS DE NEDERLANDSE BANKEN COMMUNICEREN",
       Transaction {
         "amount": "-2760",
         "bankReference": "B4G29PGCVO7Q06US",
+        "creditDebitIndicator": "D",
         "currency": "EUR",
         "date": 2014-07-29T00:00:00.000Z,
         "detailSegments": Array [
@@ -260,6 +266,7 @@ REK: NL65INGB0123456789/NAAM: PICQER",
       Transaction {
         "amount": "500",
         "bankReference": "B4G29PGDCK1QFV3E",
+        "creditDebitIndicator": "C",
         "currency": "EUR",
         "date": 2014-07-29T00:00:00.000Z,
         "detailSegments": Array [
@@ -332,6 +339,7 @@ Array [
       Transaction {
         "amount": "-5000",
         "bankReference": "",
+        "creditDebitIndicator": "D",
         "currency": undefined,
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
@@ -348,6 +356,7 @@ Array [
       Transaction {
         "amount": "5000",
         "bankReference": "",
+        "creditDebitIndicator": "C",
         "currency": undefined,
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
@@ -401,6 +410,7 @@ Array [
       Transaction {
         "amount": "-5000",
         "bankReference": "",
+        "creditDebitIndicator": "D",
         "currency": undefined,
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
@@ -417,6 +427,7 @@ Array [
       Transaction {
         "amount": "-20",
         "bankReference": "",
+        "creditDebitIndicator": "D",
         "currency": undefined,
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
@@ -434,6 +445,7 @@ Array [
       Transaction {
         "amount": "5020",
         "bankReference": "",
+        "creditDebitIndicator": "C",
         "currency": undefined,
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
@@ -490,6 +502,7 @@ Array [
       Transaction {
         "amount": "500",
         "bankReference": "B4E07XM00J000023",
+        "creditDebitIndicator": "C",
         "currency": "EUR",
         "date": 2014-05-07T00:00:00.000Z,
         "detailSegments": Array [
@@ -543,6 +556,7 @@ BIC:XXXXDK22",
       Transaction {
         "amount": "-2760",
         "bankReference": "B4G29PGCVO7Q06US",
+        "creditDebitIndicator": "D",
         "currency": "EUR",
         "date": 2014-07-29T00:00:00.000Z,
         "detailSegments": Array [
@@ -563,6 +577,7 @@ BIC:XXXXGB2L",
       Transaction {
         "amount": "500",
         "bankReference": "B4G29PGDCK1QFV3E",
+        "creditDebitIndicator": "C",
         "currency": "EUR",
         "date": 2014-07-29T00:00:00.000Z,
         "detailSegments": Array [

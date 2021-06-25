@@ -54,6 +54,7 @@ function expectedStatement() {
         detailSegments: [ 'LINE1\nLINE2' ],
         extraDetails: '',
         fundsCode: '',
+        creditDebitIndicator: 'C'
       }
     ]};
 }
@@ -103,6 +104,7 @@ describe('MT940 Message Type', () => {
       detailSegments: [ 'LINE1' ],
       extraDetails: '',
       fundsCode: '',
+      creditDebitIndicator: 'C'
     });
     expect(result).toEqual(exp);
     expect(result.tags).not.toBeDefined();
