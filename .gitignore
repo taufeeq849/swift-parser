@@ -8,3 +8,4 @@ play.js
 .nyc_output/
 coverage.lcov
 dist/
+/.idea/
