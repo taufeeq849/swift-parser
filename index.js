@@ -17,7 +17,7 @@
 
 /**
  * MT940 parser
- * @module swift-parser
+ * @module swiftmessageparser
  */
 
 const Parser  = require('./lib/parser');
@@ -36,7 +36,7 @@ module.exports = {
    * @returns {array<Statement>} Array of statements
    *
    * @example
-   * const parser = require('@centrapay/swift-parser');
+   * const parser = require('swiftmessageparser');
    * const statements = parser.parse({
    *   type: 'mt940',
    *   data: fs.readFileSync(path, 'utf8'),
