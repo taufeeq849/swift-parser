@@ -7,13 +7,13 @@ Statement Message][MT940] and [MT 942 Interim Transaction Report][MT942].
 ## Installation
 
 ```bash
-npm install @finlyncerp/swift-parser
+npm install swift-parser
 ```
 
 ## Usage
 
 ```javascript
-const parser = require('@finlyncerp/swift-parser');
+const parser = require('swift-parser');
 const statements = parser.parse({
   type: 'mt940',
   data: fs.readFileSync(path, 'utf8'),

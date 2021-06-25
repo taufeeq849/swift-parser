@@ -17,7 +17,7 @@
 
 /**
  * MT940 parser
- * @module @finlyncerp/swift-parser
+ * @module swift-parser
  */
 
 const Parser  = require('./lib/parser');
