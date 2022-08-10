@@ -313,7 +313,7 @@ Array [
     "closingAvailableBalanceDate": undefined,
     "closingBalance": undefined,
     "closingBalanceDate": undefined,
-    "currency": undefined,
+    "currency": "NZD",
     "forwardAvailableBalance": undefined,
     "forwardAvailableBalanceDate": undefined,
     "informationToAccountOwner": "",
@@ -340,7 +340,7 @@ Array [
         "amount": "-5000",
         "bankReference": "",
         "creditDebitIndicator": "D",
-        "currency": undefined,
+        "currency": "NZD",
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
           "/BAI/469/MISCELLANEOUS ACH DEBIT
@@ -357,7 +357,7 @@ Array [
         "amount": "5000",
         "bankReference": "",
         "creditDebitIndicator": "C",
-        "currency": undefined,
+        "currency": "NZD",
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
           "/BAI/399/MISCELLANEOUS CREDIT
@@ -384,7 +384,7 @@ Array [
     "closingAvailableBalanceDate": undefined,
     "closingBalance": undefined,
     "closingBalanceDate": undefined,
-    "currency": undefined,
+    "currency": "NZD",
     "forwardAvailableBalance": undefined,
     "forwardAvailableBalanceDate": undefined,
     "informationToAccountOwner": "",
@@ -411,7 +411,7 @@ Array [
         "amount": "-5000",
         "bankReference": "",
         "creditDebitIndicator": "D",
-        "currency": undefined,
+        "currency": "NZD",
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
           "/BAI/469/MISCELLANEOUS ACH DEBIT
@@ -428,7 +428,7 @@ Array [
         "amount": "-20",
         "bankReference": "",
         "creditDebitIndicator": "D",
-        "currency": undefined,
+        "currency": "NZD",
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
           "/BAI/469/MISCELLANEOUS ACH DEBIT
@@ -446,7 +446,7 @@ Array [
         "amount": "5020",
         "bankReference": "",
         "creditDebitIndicator": "C",
-        "currency": undefined,
+        "currency": "NZD",
         "date": 2020-05-21T00:00:00.000Z,
         "detailSegments": Array [
           "/BAI/399/MISCELLANEOUS CREDIT
