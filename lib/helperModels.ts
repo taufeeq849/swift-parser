@@ -27,12 +27,22 @@ class BankDate {
    * @return {Date} a Date object
    * @static
    */
-  static parse(year, month, day) {
-    let fullyear = Number.parseInt(year, 10);
+  static parse(
+    year: string | number,
+    month: string | number,
+    day: string | number
+  ) {
+    let fullyear = Number.parseInt(year.toString(), 10);
     if (fullyear < 100) {
       fullyear += 2000;
     }
-    return new Date(Date.UTC(fullyear, Number.parseInt(month, 10) - 1, day));
+    return new Date(
+      Date.UTC(
+        fullyear,
+        Number.parseInt(month.toString(), 10) - 1,
+        Number.parseInt(day.toString())
+      )
+    );
   }
 
   static forOffsetDateTime({
