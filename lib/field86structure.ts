@@ -18,8 +18,8 @@
 import { ParsedStruc } from "./types";
 
 export default class Field86StructureParser {
-  static buildTagRe(details) {
-    const prefix = details.charAt();
+  static buildTagRe(details: string) {
+    const prefix = details.charAt(0);
 
     // check first symbol is known separator
     let tagRe;
@@ -47,7 +47,7 @@ export default class Field86StructureParser {
    * Detects if field 86 is structured and attempts to parse it
    */
 
-  static parse(details) {
+  static parse(details: string) {
     details = details.replace(/\n/g, "").trim();
 
     const parsedStruc: ParsedStruc = {};

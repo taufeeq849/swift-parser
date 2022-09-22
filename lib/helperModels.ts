@@ -35,7 +35,15 @@ class BankDate {
     return new Date(Date.UTC(fullyear, Number.parseInt(month, 10) - 1, day));
   }
 
-  static forOffsetDateTime({ date, time, offset }) {
+  static forOffsetDateTime({
+    date,
+    time,
+    offset,
+  }: {
+    date: string;
+    time: string;
+    offset: string;
+  }): Date {
     return moment(date + time + offset, "YYMMDDHmmZZ").toDate();
   }
 }
@@ -49,7 +57,10 @@ export class BankAmount {
    * @static
    */
   // eslint-disable-next-line complexity
-  static parse(dcmark, amountStr) {
+  static parse(
+    dcmark: string | [string, string] | [string],
+    amountStr: string
+  ) {
     let eOrR,
       dc = dcmark;
     if (dcmark.length === 2) {

@@ -24,6 +24,7 @@
   "homepage": "https://github.com/sidtagirisa/swift-parser",
   "repository": "https://github.com/sidtagirisa/swift-parser.git",
   "devDependencies": {
+    "@types/glob": "^8.0.0",
     "@types/jest": "^29.0.3",
     "eslint": "^7.28.0",
     "eslint-plugin-no-only-tests": "^2.6.0",

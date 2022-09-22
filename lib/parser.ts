@@ -55,7 +55,7 @@ export default class Parser {
    * Split text into lines, replace clutter, remove empty lines ...
    * @private
    */
-  _splitAndNormalize(data) {
+  _splitAndNormalize(data: string) {
     return data.split(/\r?\n/).filter((line) => !!line && line !== "-");
   }
 
@@ -64,7 +64,7 @@ export default class Parser {
    * @private
    */
   // eslint-disable-next-line complexity
-  *_parseLines(lines) {
+  *_parseLines(lines: string[]) {
     const reTag = /^:([0-9]{2}|NS)([A-Z])?:/;
     let tag = null;
 

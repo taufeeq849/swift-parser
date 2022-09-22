@@ -2,6 +2,7 @@ import BigNumber from "bignumber.js";
 
 export type ParsedStruc = {
   gvc?: string;
+  [key: string]: string | undefined;
 };
 
 export type Id = string | number;

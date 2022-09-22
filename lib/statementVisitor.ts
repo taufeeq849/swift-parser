@@ -67,6 +67,7 @@ export class StatementVisitor {
     const statement = new Statement({
       statementDate: this.statementDate,
       accountIdentification: this.accountIdentification,
+      //@ts-ignore
       number: this.statementNumber,
       relatedReference: this.relatedReference,
       transactionReference: this.transactionReference,

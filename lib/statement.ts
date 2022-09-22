@@ -55,10 +55,10 @@ export class Statement {
   closingAvailableBalanceDate: Date;
   forwardAvailableBalanceDate: Date;
   currecy: string;
-  openingBalance: number;
-  closingBalance: number;
-  closingAvailableBalance: number;
-  forwardAvailableBalance: number;
+  openingBalance: BigNumber;
+  closingBalance: BigNumber;
+  closingAvailableBalance: BigNumber;
+  forwardAvailableBalance: BigNumber;
   informationToAccountOwner: string;
   messageBlocks?: {
     [key: string]: {
@@ -66,7 +66,7 @@ export class Statement {
     };
   };
   transactions: Transaction[];
-  constructor(props) {
+  constructor(props: Statement) {
     Object.assign(this, props);
     if (props.closingBalance) {
       if (!this.closingAvailableBalanceDate) {

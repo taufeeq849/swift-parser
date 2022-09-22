@@ -17,17 +17,12 @@
 
 import { StatementVisitor } from "./statementVisitor";
 
-function buildStatement({ group }) {
+export function buildStatement({ group }) {
   const visitor = new StatementVisitor();
   group.forEach((tag) => tag.accept(visitor));
   return visitor.toStatement();
 }
 
-function validateGroup() {
+export function validateGroup() {
   return true;
 }
-
-module.exports = {
-  buildStatement,
-  validateGroup,
-};

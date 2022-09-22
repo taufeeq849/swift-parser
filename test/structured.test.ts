@@ -16,7 +16,7 @@
  */
 import Field86StructureParser from "../lib/field86structure";
 
-function run(details) {
+function run(details: string) {
   return Field86StructureParser.parse(details);
 }
 
