@@ -1,21 +1,22 @@
 /*
-*  Copyright 2016 Alexander Tsybulsky and other contributors
-*  Copyright 2020 Centrapay and other contributors
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*  http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*/
+ *  Copyright 2016 Alexander Tsybulsky and other contributors
+ *  Copyright 2020 Centrapay and other contributors
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 
-const Field86Structure = require('./field86structure');
+import BigNumber from "bignumber.js";
+import Field86StructureParser from "./field86structure";
 
 /**
  * A financial transaction record.
@@ -35,9 +36,22 @@ const Field86Structure = require('./field86structure');
  * @property {string} extraDetails - extra details (supplementary details)
  * @property {string} nonSwift - content of NS tags associated with a transaction (after tags 61 or 86)
  */
-class Transaction {
+export class Transaction {
+  date: Date;
+  amount: BigNumber;
+  isReversal: boolean;
+  currency: string;
+  detailSegments: string[];
+  transactionType: string;
+  reference: string;
+  entryDate: Date;
+  fundsCode: string;
+  bankReference: string;
+  extraDetails: string;
+  nonSwift: string;
+  creditDebitIndicator: string;
 
-  constructor(props) {
+  constructor(props: Transaction) {
     this.date = props.date;
     this.entryDate = props.entryDate;
     this.fundsCode = props.fundsCode;
@@ -53,13 +67,10 @@ class Transaction {
   }
 
   get details() {
-    return this.detailSegments.join('\n');
+    return this.detailSegments.join("\n");
   }
 
   get structuredDetails() {
-    return Field86Structure.parse(this.details);
+    return Field86StructureParser.parse(this.details);
   }
-
 }
-
-module.exports = Transaction;
