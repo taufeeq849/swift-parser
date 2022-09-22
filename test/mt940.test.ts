@@ -14,11 +14,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-import * as Tags from "../lib/tags";
 import * as helpers from "../lib/helperModels";
 import * as mt940MsgType from "../lib/mt940";
 import * as mt942MsgType from "../lib/mt942";
 import BigNumber from "bignumber.js";
+import tags from "../lib/tags";
 function expectedStatement() {
   return {
     transactionReference: "B4E08MS9D00A0009",
@@ -61,26 +61,26 @@ function expectedStatement() {
 }
 
 const DUMMY_GROUP_STRUCTURED = [
-  new Tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
-  new Tags.TagAccountIdentification("123456789"),
-  new Tags.TagStatementNumber("123/1"),
-  new Tags.TagOpeningBalance("C140507EUR0,00"),
-  new Tags.TagStatementLine("1405070507C500,00NTRFNONREF//AUXREF"),
-  new Tags.TagTransactionDetails("?20Hello?30World"),
-  new Tags.TagClosingBalance("C140508EUR500,00"),
+  new tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
+  new tags.TagAccountIdentification("123456789"),
+  new tags.TagStatementNumber("123/1"),
+  new tags.TagOpeningBalance("C140507EUR0,00"),
+  new tags.TagStatementLine("1405070507C500,00NTRFNONREF//AUXREF"),
+  new tags.TagTransactionDetails("?20Hello?30World"),
+  new tags.TagClosingBalance("C140508EUR500,00"),
 ];
 const DUMMY_GROUP_COMPLEX = [
   // 2 detail lines and 2 transactions
-  new Tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
-  new Tags.TagRelatedReference("X"),
-  new Tags.TagAccountIdentification("123456789"),
-  new Tags.TagStatementNumber("123/1"),
-  new Tags.TagOpeningBalance("C140507EUR0,00"),
-  new Tags.TagStatementLine("1405070507C500,00NTRFNONREF//AUXREF"),
-  new Tags.TagTransactionDetails("LINE1\nLINE2"),
-  new Tags.TagStatementLine("1405070507C0,00NTRFNONREF2"),
-  new Tags.TagTransactionDetails("LINE1"),
-  new Tags.TagClosingBalance("C140508EUR500,00"),
+  new tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
+  new tags.TagRelatedReference("X"),
+  new tags.TagAccountIdentification("123456789"),
+  new tags.TagStatementNumber("123/1"),
+  new tags.TagOpeningBalance("C140507EUR0,00"),
+  new tags.TagStatementLine("1405070507C500,00NTRFNONREF//AUXREF"),
+  new tags.TagTransactionDetails("LINE1\nLINE2"),
+  new tags.TagStatementLine("1405070507C0,00NTRFNONREF2"),
+  new tags.TagTransactionDetails("LINE1"),
+  new tags.TagClosingBalance("C140508EUR500,00"),
 ];
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ describe("MT940 Message Type", () => {
         groupNumber: 1,
         group: [
           // missing tags
-          new Tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
+          new tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
         ],
       })
     ).toThrow(/Mandatory tag/);
@@ -140,7 +140,7 @@ describe("MT940 Message Type", () => {
         groupNumber: 1,
         group: [
           // missing tags
-          new Tags.TagClosingBalance("C140508EUR500,00"),
+          new tags.TagClosingBalance("C140508EUR500,00"),
         ],
       })
     ).toThrow(/Mandatory tag/);
@@ -149,9 +149,9 @@ describe("MT940 Message Type", () => {
         groupNumber: 1,
         group: [
           // missing tags
-          new Tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
-          new Tags.TagOpeningBalance("C140507EUR0,00"),
-          new Tags.TagClosingBalance("C140508EUR500,00"),
+          new tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
+          new tags.TagOpeningBalance("C140507EUR0,00"),
+          new tags.TagClosingBalance("C140508EUR500,00"),
         ],
       })
     ).toThrow(/Mandatory tag/);
@@ -160,13 +160,13 @@ describe("MT940 Message Type", () => {
         groupNumber: 1,
         group: [
           // inconsistent currency
-          new Tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
-          new Tags.TagAccountIdentification("123456789"),
-          new Tags.TagStatementNumber("123/1"),
-          new Tags.TagOpeningBalance("C140507EUR0,00"),
-          new Tags.TagStatementLine("1405070507C500,00NTRFNONREF//AUXREF"),
-          new Tags.TagTransactionDetails("DETAILS"),
-          new Tags.TagClosingBalance("C140508USD500,00"),
+          new tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
+          new tags.TagAccountIdentification("123456789"),
+          new tags.TagStatementNumber("123/1"),
+          new tags.TagOpeningBalance("C140507EUR0,00"),
+          new tags.TagStatementLine("1405070507C500,00NTRFNONREF//AUXREF"),
+          new tags.TagTransactionDetails("DETAILS"),
+          new tags.TagClosingBalance("C140508USD500,00"),
         ],
       })
     ).toThrow(/Currency markers/);
@@ -175,13 +175,13 @@ describe("MT940 Message Type", () => {
         groupNumber: 1,
         group: [
           // inconsistent balances
-          new Tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
-          new Tags.TagAccountIdentification("123456789"),
-          new Tags.TagStatementNumber("123/1"),
-          new Tags.TagOpeningBalance("C140507EUR0,00"),
-          new Tags.TagStatementLine("1405070507C400,00NTRFNONREF//AUXREF"),
-          new Tags.TagTransactionDetails("DETAILS"),
-          new Tags.TagClosingBalance("C140508EUR500,00"),
+          new tags.TagTransactionReferenceNumber("B4E08MS9D00A0009"),
+          new tags.TagAccountIdentification("123456789"),
+          new tags.TagStatementNumber("123/1"),
+          new tags.TagOpeningBalance("C140507EUR0,00"),
+          new tags.TagStatementLine("1405070507C400,00NTRFNONREF//AUXREF"),
+          new tags.TagTransactionDetails("DETAILS"),
+          new tags.TagClosingBalance("C140508EUR500,00"),
         ],
       })
     ).toThrow(/Sum of lines/);

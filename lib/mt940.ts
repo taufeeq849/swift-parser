@@ -16,7 +16,7 @@
  */
 import BigNumber from "bignumber.js";
 import { StatementVisitor } from "./statementVisitor";
-import * as Tags from "./tags";
+import Tags from "./tags";
 // eslint-disable-next-line complexity
 export function validateGroup({ group, groupNumber }) {
   // Check mandatory tags

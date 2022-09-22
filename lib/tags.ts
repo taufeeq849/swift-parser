@@ -15,13 +15,13 @@
  *  limitations under the License.
  */
 
-import BigNumber from "bignumber.js";
-import { Id } from "./types";
 import * as helperModels from "./helperModels";
-export class TagFactory {
-  //TODO: convert this type to a proper type
-  tagMap: Map<string, typeof Tag>;
+const BigNumber = require("bignumber.js");
+
+class TagFactory {
+  tagMap: any;
   constructor() {
+    //@ts-ignore
     this.tagMap = [
       TagTransactionReferenceNumber,
       TagRelatedReference,
@@ -48,16 +48,13 @@ export class TagFactory {
    * @param {string} id - tag id (21, 61 ...)
    * @param {string} subId - optional tag sub Id (C, F ...)
    * @param {string} data - tag content (without id part)
-   * @return {Tag} new Tag (specific subexport class) instance
+   * @return {Tag} new Tag (specific subclass) instance
    * @ignore
    */
-  createTag(id: string, subId: string, data: string) {
-    const numberedId = Number.parseInt(id, 10);
-    const tagId = isNaN(numberedId) ? id : numberedId;
+  createTag(id, subId, data) {
+    const tagId = isNaN(id) ? id : Number.parseInt(id, 10);
     const fullTagId = tagId.toString() + (subId ? subId.toString() : "");
-
-    const tagClass =
-      this.tagMap.get(fullTagId) || this.tagMap.get(tagId.toString());
+    const tagClass = this.tagMap.get(fullTagId) || this.tagMap.get(tagId);
 
     if (!tagClass) {
       throw new Error(`Unknown tag ${fullTagId}`);
@@ -67,14 +64,14 @@ export class TagFactory {
   }
 }
 
-export class Tag {
-  id: Id;
-  re: RegExp;
-  fields: { [key: string]: string | Date };
-  data: string;
+class Tag {
+  id: any;
+  re: unknown;
+  data: any;
+  fields: any;
   /** Tag ID */
-  static get ID(): Id {
-    return "0";
+  static get ID() {
+    return 0;
   }
   /** Tag data regex pattern */
   static get PATTERN() {
@@ -85,8 +82,11 @@ export class Tag {
     if (new.target === Tag) {
       throw new TypeError("Cannot construct Tag instances directly");
     }
-    this.id = Tag.ID;
-    this.re = Tag.PATTERN;
+
+    // @ts-ignore
+    this.id = this.constructor.ID;
+    // @ts-ignore
+    this.re = this.constructor.PATTERN;
     this.data = data;
     this._parse();
   }
@@ -104,6 +104,7 @@ export class Tag {
   }
 
   _nextMatch() {
+    // @ts-ignore
     return this.re.exec(this.data);
   }
 
@@ -112,7 +113,7 @@ export class Tag {
   } // eslint-disable-line no-unused-vars
 }
 
-export class TagTransactionReferenceNumber extends Tag {
+class TagTransactionReferenceNumber extends Tag {
   static get ID() {
     return 20;
   }
@@ -129,7 +130,7 @@ export class TagTransactionReferenceNumber extends Tag {
   }
 }
 
-export class TagRelatedReference extends Tag {
+class TagRelatedReference extends Tag {
   static get ID() {
     return 21;
   }
@@ -146,7 +147,7 @@ export class TagRelatedReference extends Tag {
   }
 }
 
-export class TagAccountIdentification extends Tag {
+class TagAccountIdentification extends Tag {
   static get ID() {
     return 25;
   }
@@ -163,7 +164,7 @@ export class TagAccountIdentification extends Tag {
   }
 }
 
-export class TagStatementNumber extends Tag {
+class TagStatementNumber extends Tag {
   static get ID() {
     return 28;
   }
@@ -182,7 +183,8 @@ export class TagStatementNumber extends Tag {
   }
 }
 
-export class TagDebitAndCreditFloorLimit extends Tag {
+// @ts-ignore
+class TagDebitAndCreditFloorLimit extends Tag {
   static get ID() {
     return "34F";
   }
@@ -202,7 +204,8 @@ export class TagDebitAndCreditFloorLimit extends Tag {
   }
 }
 
-export class TagDateTimeIndication extends Tag {
+// @ts-ignore
+class TagDateTimeIndication extends Tag {
   static get ID() {
     return "13D";
   }
@@ -224,7 +227,8 @@ export class TagDateTimeIndication extends Tag {
   }
 }
 
-export class TagDateTimeIndication13 extends Tag {
+// @ts-ignore
+class TagDateTimeIndication13 extends Tag {
   static get ID() {
     return "13";
   }
@@ -246,7 +250,8 @@ export class TagDateTimeIndication13 extends Tag {
   }
 }
 
-export class TagNonSwift extends Tag {
+// @ts-ignore
+class TagNonSwift extends Tag {
   static get ID() {
     return "NS";
   }
@@ -263,7 +268,7 @@ export class TagNonSwift extends Tag {
   }
 }
 
-export class TagBalance extends Tag {
+class TagBalance extends Tag {
   static get PATTERN() {
     const re =
       "^([DC])" + // DC indicator
@@ -287,7 +292,7 @@ export class TagBalance extends Tag {
   }
 }
 
-export class TagOpeningBalance extends TagBalance {
+class TagOpeningBalance extends TagBalance {
   static get ID() {
     return 60;
   }
@@ -296,7 +301,7 @@ export class TagOpeningBalance extends TagBalance {
   }
 }
 
-export class TagClosingBalance extends TagBalance {
+class TagClosingBalance extends TagBalance {
   static get ID() {
     return 62;
   }
@@ -305,7 +310,7 @@ export class TagClosingBalance extends TagBalance {
   }
 }
 
-export class TagNumberAndSumOfEntries extends Tag {
+class TagNumberAndSumOfEntries extends Tag {
   static get PATTERN() {
     return /^(\d{1,5})([A-Z]{3})(\d{1,15})/;
   }
@@ -322,19 +327,21 @@ export class TagNumberAndSumOfEntries extends Tag {
   }
 }
 
-export class TagNumberAndSumOfEntriesD extends TagNumberAndSumOfEntries {
+// @ts-ignore
+class TagNumberAndSumOfEntriesD extends TagNumberAndSumOfEntries {
   static get ID() {
     return "90D";
   }
 }
 
-export class TagNumberAndSumOfEntriesC extends TagNumberAndSumOfEntries {
+// @ts-ignore
+class TagNumberAndSumOfEntriesC extends TagNumberAndSumOfEntries {
   static get ID() {
     return "90C";
   }
 }
 
-export class TagClosingAvailableBalance extends TagBalance {
+class TagClosingAvailableBalance extends TagBalance {
   static get ID() {
     return 64;
   }
@@ -343,7 +350,7 @@ export class TagClosingAvailableBalance extends TagBalance {
   }
 }
 
-export class TagForwardAvailableBalance extends TagBalance {
+class TagForwardAvailableBalance extends TagBalance {
   static get ID() {
     return 65;
   }
@@ -352,7 +359,7 @@ export class TagForwardAvailableBalance extends TagBalance {
   }
 }
 
-export class TagStatementLine extends Tag {
+class TagStatementLine extends Tag {
   static get ID() {
     return 61;
   }
@@ -389,7 +396,7 @@ export class TagStatementLine extends Tag {
   }
 }
 
-export class TagTransactionDetails extends Tag {
+class TagTransactionDetails extends Tag {
   static get ID() {
     return 86;
   }
@@ -406,8 +413,9 @@ export class TagTransactionDetails extends Tag {
   }
 }
 
-export class TagMessageBlock extends Tag {
-  isStarting: boolean;
+// @ts-ignore
+class TagMessageBlock extends Tag {
+  isStarting?: boolean;
   static get ID() {
     return "MB";
   }
@@ -426,6 +434,7 @@ export class TagMessageBlock extends Tag {
       }
       match = this._nextMatch();
     }
+    // @ts-ignore
     this.isStarting = fields["1"] !== undefined; // has message 1
     return fields;
   }
@@ -433,3 +442,26 @@ export class TagMessageBlock extends Tag {
     visitor.visitMessageBlock(this);
   }
 }
+
+export default {
+  TagFactory,
+  Tag,
+  TagTransactionReferenceNumber,
+  TagRelatedReference,
+  TagAccountIdentification,
+  TagStatementNumber,
+  TagDebitAndCreditFloorLimit,
+  TagDateTimeIndication,
+  TagDateTimeIndication13,
+  TagNonSwift,
+  TagBalance,
+  TagOpeningBalance,
+  TagClosingBalance,
+  TagNumberAndSumOfEntriesD,
+  TagNumberAndSumOfEntriesC,
+  TagStatementLine,
+  TagTransactionDetails,
+  TagClosingAvailableBalance,
+  TagForwardAvailableBalance,
+  TagMessageBlock,
+};

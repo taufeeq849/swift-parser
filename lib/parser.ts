@@ -15,7 +15,7 @@
  *  limitations under the License.
  */
 
-import * as Tags from "./tags";
+import Tags from "./tags";
 import * as mt940MsgType from "./mt940";
 import * as mt942MsgType from "./mt942";
 

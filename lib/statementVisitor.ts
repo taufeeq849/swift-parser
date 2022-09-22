@@ -17,22 +17,17 @@
 
 import BigNumber from "bignumber.js";
 import { Statement } from "./statement";
-import {
-  Tag,
-  TagNonSwift,
-  TagStatementLine,
-  TagTransactionDetails,
-} from "./tags";
 import { Transaction } from "./transaction";
 import { FloorLimit, StatementNumber } from "./types";
+import tags from "./tags";
 
 export class StatementVisitor {
-  tags: Tag[];
+  tags: typeof tags.Tag[];
   messageBlocks: any;
   transactions: Transaction[];
   informationToAccountOwner: string[];
   message;
-  prevTag?: Tag;
+  prevTag?: typeof tags.Tag;
   statementDate: Date;
   accountIdentification: string;
   statementNumber: StatementNumber;
@@ -59,7 +54,7 @@ export class StatementVisitor {
 
   pushTag(tag) {
     this.tags.push(tag);
-    if (!(tag instanceof TagNonSwift)) {
+    if (!(tag instanceof tags.TagNonSwift)) {
       this.prevTag = tag;
     }
   }
@@ -161,7 +156,7 @@ export class StatementVisitor {
   }
 
   visitTransactionDetails(tag) {
-    if (this.prevTag instanceof TagStatementLine) {
+    if (this.prevTag instanceof tags.TagStatementLine) {
       this.lastTransaction.detailSegments.push(tag.fields.transactionDetails);
     } else {
       this.informationToAccountOwner.push(tag.fields.transactionDetails);
@@ -201,8 +196,8 @@ export class StatementVisitor {
 
   visitNonSwift(tag) {
     if (
-      this.prevTag instanceof TagStatementLine ||
-      this.prevTag instanceof TagTransactionDetails
+      this.prevTag instanceof tags.TagStatementLine ||
+      this.prevTag instanceof tags.TagTransactionDetails
     ) {
       this.lastTransaction.nonSwift = tag.data;
     }

@@ -15,7 +15,7 @@
  *  limitations under the License.
  */
 
-import * as tags from "../lib/tags";
+import tags from "../lib/tags";
 const tf = new tags.TagFactory();
 
 describe("Message blocks", () => {

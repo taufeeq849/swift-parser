@@ -15,7 +15,7 @@
  *  limitations under the License.
  */
 
-import * as tags from "../lib/tags";
+import tags from "../lib/tags";
 const tf = new tags.TagFactory();
 import * as helperModels from "../lib/helperModels";
 import BigNumber from "bignumber.js";

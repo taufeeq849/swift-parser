@@ -16,7 +16,7 @@
  */
 
 import Parser from "../lib/parser";
-import * as Tags from "../lib/tags";
+import Tags from "../lib/tags";
 import * as helpers from "../lib/helperModels";
 import * as path from "path";
 import * as fs from "fs";
