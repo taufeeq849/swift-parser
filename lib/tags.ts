@@ -15,13 +15,13 @@
  *  limitations under the License.
  */
 
+import BigNumber from "bignumber.js";
 import * as helperModels from "./helperModels";
-const BigNumber = require("bignumber.js");
+import { Id } from "./types";
 
 class TagFactory {
-  tagMap: any;
+  tagMap: Map<string | number, typeof Tag>;
   constructor() {
-    //@ts-ignore
     this.tagMap = [
       TagTransactionReferenceNumber,
       TagRelatedReference,
@@ -65,12 +65,16 @@ class TagFactory {
 }
 
 class Tag {
-  id: any;
-  re: unknown;
-  data: any;
+  id: Id;
+  re: RegExp;
+  data: string;
+  //fields can be anything
+
   fields: any;
+
+  ["constructor"]: typeof Tag;
   /** Tag ID */
-  static get ID() {
+  static get ID(): Id {
     return 0;
   }
   /** Tag data regex pattern */
@@ -83,9 +87,7 @@ class Tag {
       throw new TypeError("Cannot construct Tag instances directly");
     }
 
-    // @ts-ignore
     this.id = this.constructor.ID;
-    // @ts-ignore
     this.re = this.constructor.PATTERN;
     this.data = data;
     this._parse();
@@ -104,7 +106,6 @@ class Tag {
   }
 
   _nextMatch() {
-    // @ts-ignore
     return this.re.exec(this.data);
   }
 
@@ -183,7 +184,6 @@ class TagStatementNumber extends Tag {
   }
 }
 
-// @ts-ignore
 class TagDebitAndCreditFloorLimit extends Tag {
   static get ID() {
     return "34F";
@@ -204,7 +204,6 @@ class TagDebitAndCreditFloorLimit extends Tag {
   }
 }
 
-// @ts-ignore
 class TagDateTimeIndication extends Tag {
   static get ID() {
     return "13D";
@@ -227,7 +226,6 @@ class TagDateTimeIndication extends Tag {
   }
 }
 
-// @ts-ignore
 class TagDateTimeIndication13 extends Tag {
   static get ID() {
     return "13";
@@ -250,7 +248,6 @@ class TagDateTimeIndication13 extends Tag {
   }
 }
 
-// @ts-ignore
 class TagNonSwift extends Tag {
   static get ID() {
     return "NS";
@@ -327,14 +324,12 @@ class TagNumberAndSumOfEntries extends Tag {
   }
 }
 
-// @ts-ignore
 class TagNumberAndSumOfEntriesD extends TagNumberAndSumOfEntries {
   static get ID() {
     return "90D";
   }
 }
 
-// @ts-ignore
 class TagNumberAndSumOfEntriesC extends TagNumberAndSumOfEntries {
   static get ID() {
     return "90C";
@@ -413,7 +408,6 @@ class TagTransactionDetails extends Tag {
   }
 }
 
-// @ts-ignore
 class TagMessageBlock extends Tag {
   isStarting?: boolean;
   static get ID() {
@@ -434,7 +428,6 @@ class TagMessageBlock extends Tag {
       }
       match = this._nextMatch();
     }
-    // @ts-ignore
     this.isStarting = fields["1"] !== undefined; // has message 1
     return fields;
   }

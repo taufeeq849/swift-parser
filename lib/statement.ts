@@ -60,7 +60,11 @@ export class Statement {
   closingAvailableBalance: number;
   forwardAvailableBalance: number;
   informationToAccountOwner: string;
-  messageBlocks: any;
+  messageBlocks?: {
+    [key: string]: {
+      value: string;
+    };
+  };
   transactions: Transaction[];
   constructor(props) {
     Object.assign(this, props);
