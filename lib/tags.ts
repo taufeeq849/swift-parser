@@ -15,10 +15,10 @@
  *  limitations under the License.
  */
 
-import BigNumber from "bignumber.js";
-import * as helperModels from "./helperModels";
-import { StatementVisitor } from "./statementVisitor";
-import { Id } from "./types";
+import BigNumber from 'bignumber.js';
+import * as helperModels from './helperModels';
+import { StatementVisitor } from './statementVisitor';
+import { Id } from './types';
 
 class TagFactory {
   tagMap: Map<string | number, typeof Tag>;
@@ -53,12 +53,9 @@ class TagFactory {
    * @return {Tag} new Tag (specific subclass) instance
    * @ignore
    */
-  createTag(id: Id, subId: string, data: string) {
-    //@ts-ignore
-    const tagId = isNaN(id.toString())
-      ? id
-      : Number.parseInt(id.toString(), 10);
-    const fullTagId = tagId.toString() + (subId ? subId.toString() : "");
+  createTag(id: any, subId: string, data: string) {
+    const tagId = isNaN(id) ? id : Number.parseInt(id.toString(), 10);
+    const fullTagId = tagId.toString() + (subId ? subId.toString() : '');
     const tagClass = this.tagMap.get(fullTagId) || this.tagMap.get(tagId);
 
     if (!tagClass) {
@@ -74,7 +71,7 @@ export class Tag {
   re: RegExp;
   data: string;
 
-  ["constructor"]: typeof Tag;
+  ['constructor']: typeof Tag;
   fields: { [key: string]: any };
   accept: (visitor: StatementVisitor) => void;
   /** Tag ID */
@@ -88,7 +85,7 @@ export class Tag {
 
   constructor(data: string) {
     if (new.target === Tag) {
-      throw new TypeError("Cannot construct Tag instances directly");
+      throw new TypeError('Cannot construct Tag instances directly');
     }
 
     this.id = this.constructor.ID;
@@ -179,8 +176,8 @@ class TagStatementNumber extends Tag {
   _extractFields(match: string[]) {
     return {
       statementNumber: match[1],
-      sequenceNumber: match[3] || "",
-      sectionNumber: match[5] || "",
+      sequenceNumber: match[3] || '',
+      sectionNumber: match[5] || '',
     };
   }
   accept = (visitor: StatementVisitor) => {
@@ -190,7 +187,7 @@ class TagStatementNumber extends Tag {
 
 class TagDebitAndCreditFloorLimit extends Tag {
   static get ID() {
-    return "34F";
+    return '34F';
   }
   static get PATTERN() {
     return /^([A-Z]{3})([A-Z]{1})?(\d{1,15})/;
@@ -198,7 +195,7 @@ class TagDebitAndCreditFloorLimit extends Tag {
   _extractFields(match: string[]) {
     return {
       currency: match[1],
-      dcMark: match[2] || "",
+      dcMark: match[2] || '',
       amount: BigNumber(match[3]),
     };
   }
@@ -210,7 +207,7 @@ class TagDebitAndCreditFloorLimit extends Tag {
 
 class TagDateTimeIndication extends Tag {
   static get ID() {
-    return "13D";
+    return '13D';
   }
   static get PATTERN() {
     return /^(\d{6})(\d{4})([+-]{1}\d{4})/;
@@ -232,7 +229,7 @@ class TagDateTimeIndication extends Tag {
 
 class TagDateTimeIndication13 extends Tag {
   static get ID() {
-    return "13";
+    return '13';
   }
   static get PATTERN() {
     return /^(\d{6})(\d{4})/;
@@ -242,7 +239,7 @@ class TagDateTimeIndication13 extends Tag {
       dateTimestamp: helperModels.Date.forOffsetDateTime({
         date: match[1],
         time: match[2],
-        offset: "0000",
+        offset: '0000',
       }),
     };
   }
@@ -254,7 +251,7 @@ class TagDateTimeIndication13 extends Tag {
 
 class TagNonSwift extends Tag {
   static get ID() {
-    return "NS";
+    return 'NS';
   }
   static get PATTERN() {
     return /^(.*)/;
@@ -272,16 +269,16 @@ class TagNonSwift extends Tag {
 class TagBalance extends Tag {
   static get PATTERN() {
     const re =
-      "^([DC])" + // DC indicator
-      "(\\d{2})(\\d{2})(\\d{2})" + // Date
-      "([A-Z]{3})" + // Currency
-      "([0-9,]{0,16})"; // Amount
+      '^([DC])' + // DC indicator
+      '(\\d{2})(\\d{2})(\\d{2})' + // Date
+      '([A-Z]{3})' + // Currency
+      '([0-9,]{0,16})'; // Amount
     return new RegExp(re);
   }
   constructor(data: string) {
     super(data);
     if (new.target === TagBalance) {
-      throw new TypeError("Cannot construct TagBalance instances directly");
+      throw new TypeError('Cannot construct TagBalance instances directly');
     }
   }
   _extractFields(match: string[]) {
@@ -330,13 +327,13 @@ class TagNumberAndSumOfEntries extends Tag {
 
 class TagNumberAndSumOfEntriesD extends TagNumberAndSumOfEntries {
   static get ID() {
-    return "90D";
+    return '90D';
   }
 }
 
 class TagNumberAndSumOfEntriesC extends TagNumberAndSumOfEntries {
   static get ID() {
-    return "90C";
+    return '90C';
   }
 }
 
@@ -364,14 +361,14 @@ class TagStatementLine extends Tag {
   }
   static get PATTERN() {
     const re =
-      "^(\\d{2})(\\d{2})(\\d{2})" + // Date
-      "((\\d{2})(\\d{2}))?" + // Entry date
-      "([E|R]?[DC])([A-Z])?" + // DC indicator + funds code
-      "([0-9,]{0,16})" + // Amount
-      "([A-Z][A-Z0-9]{3})" + // Transaction type
-      "([^/\\n]{0,16})" + // Customer reference
-      "(//(.{0,16}))?" + // Bank reference
-      "(\\n(.{0,34}))?"; // Extra
+      '^(\\d{2})(\\d{2})(\\d{2})' + // Date
+      '((\\d{2})(\\d{2}))?' + // Entry date
+      '([E|R]?[DC])([A-Z])?' + // DC indicator + funds code
+      '([0-9,]{0,16})' + // Amount
+      '([A-Z][A-Z0-9]{3})' + // Transaction type
+      '([^/\\n]{0,16})' + // Customer reference
+      '(//(.{0,16}))?' + // Bank reference
+      '(\\n(.{0,34}))?'; // Extra
     return new RegExp(re);
   }
   _extractFields(match: string[]) {
@@ -379,14 +376,14 @@ class TagStatementLine extends Tag {
       date: helperModels.Date.parse(match[1], match[2], match[3]),
       entryDate:
         (match[4] && helperModels.Date.parse(match[1], match[5], match[6])) ||
-        "",
-      fundsCode: match[8] || "",
+        '',
+      fundsCode: match[8] || '',
       amount: helperModels.Amount.parse(match[7], match[9]),
-      isReversal: match[7][0] === "R",
+      isReversal: match[7][0] === 'R',
       transactionType: match[10],
       reference: match[11],
-      bankReference: match[13] || "",
-      extraDetails: match[15] || "",
+      bankReference: match[13] || '',
+      extraDetails: match[15] || '',
       creditDebitIndicator: match[7],
     };
   }
@@ -415,25 +412,25 @@ class TagTransactionDetails extends Tag {
 class TagMessageBlock extends Tag {
   isStarting?: boolean;
   static get ID() {
-    return "MB";
+    return 'MB';
   }
   static get PATTERN() {
     const re =
-      "(^-\\})|(" + "\\{(\\d):" + "(.*?)" + "($|\\}(?=(\\{\\d:)|$))" + ")";
-    return new RegExp(re, "g");
+      '(^-\\})|(' + '\\{(\\d):' + '(.*?)' + '($|\\}(?=(\\{\\d:)|$))' + ')';
+    return new RegExp(re, 'g');
   }
   _extractFields(match: string[]) {
     const fields: { [key: string]: string } = {};
 
     while (match) {
-      if (match[0] === "-}") {
-        fields["EOB"] = "";
+      if (match[0] === '-}') {
+        fields['EOB'] = '';
       } else {
         fields[match[3]] = match[4];
       }
       match = this._nextMatch();
     }
-    this.isStarting = fields["1"] !== undefined; // has message 1
+    this.isStarting = fields['1'] !== undefined; // has message 1
     return fields;
   }
   accept = (visitor: StatementVisitor) => {

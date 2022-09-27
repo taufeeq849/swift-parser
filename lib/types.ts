@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import BigNumber from 'bignumber.js';
 export type ParsedStruc = {
   gvc?: string;
   [key: string]: string | undefined;

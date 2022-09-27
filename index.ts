@@ -19,7 +19,7 @@
  * MT940 parser
  * @module swiftmessageparser
  */
-import Parser from "./lib/parser";
+import Parser from './lib/parser';
 const parser = new Parser();
 
 /**
@@ -33,7 +33,7 @@ const parser = new Parser();
  * @returns {array<Statement>} Array of statements
  *
  * @example
- * const parser = require('swiftmessageparser');
+ * import 'parser' from 'swiftmessageparser';
  * const statements = parser.parse({
  *   type: 'mt940',
  *   data: fs.readFileSync(path, 'utf8'),

@@ -15,9 +15,9 @@
  *  limitations under the License.
  */
 
-import BigNumber from "bignumber.js";
-import { Transaction } from "./transaction";
-
+import BigNumber from 'bignumber.js';
+import { Transaction } from './transaction';
+import { StatementNumber } from './types';
 /**
  * A statement of financial transactions.
  *
@@ -46,15 +46,13 @@ export class Statement {
   transactionReference: string;
   relatedReference: string;
   accountIdentification: string;
-  statementNumber: string;
-  sequenceNumber: string;
-  section: string;
+  number?: StatementNumber;
   statementDate: Date;
   openingBalanceDate: Date;
   closingBalanceDate: Date;
   closingAvailableBalanceDate: Date;
   forwardAvailableBalanceDate: Date;
-  currecy: string;
+  currency: string;
   openingBalance: BigNumber;
   closingBalance: BigNumber;
   closingAvailableBalance: BigNumber;
