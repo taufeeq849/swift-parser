@@ -20,11 +20,12 @@ import { Statement } from "./statement";
 import { Transaction } from "./transaction";
 import { FloorLimit, StatementNumber } from "./types";
 import tags, { Tag } from "./tags";
-import { TaggedTemplateExpression } from "typescript";
 
 export class StatementVisitor {
   tags: Tag[];
-  messageBlocks: any;
+  messageBlocks: {
+    [key: string]: any;
+  };
   transactions: Transaction[];
   informationToAccountOwner: string[];
   message: string;
