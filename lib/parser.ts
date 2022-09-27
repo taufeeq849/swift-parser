@@ -15,7 +15,7 @@
  *  limitations under the License.
  */
 
-import Tags from "./tags";
+import Tags, { Tag } from "./tags";
 import * as mt940MsgType from "./mt940";
 import * as mt942MsgType from "./mt942";
 
@@ -26,11 +26,19 @@ const typeMapping = {
 
 const validTypes = ["mt940", "mt942"];
 
-function isValidType(type) {
+function isValidType(type: string) {
   return validTypes.includes(type);
 }
 export default class Parser {
-  parse({ data, type, validate = false }) {
+  parse({
+    data,
+    type,
+    validate = false,
+  }: {
+    data: string;
+    type: "mt940" | "mt942";
+    validate?: boolean;
+  }) {
     if (!isValidType(type)) {
       throw new Error(`"${type}" is not a valid file type`);
     }
@@ -43,6 +51,7 @@ export default class Parser {
     const tagGroups = this._groupTags(tags);
     const msgType = typeMapping[type];
     const statements = tagGroups.map((group, idx) => {
+      //convert grou[ ]
       if (validate) {
         msgType.validateGroup({ group, groupNumber: idx + 1 });
       }
@@ -102,12 +111,12 @@ export default class Parser {
    * @private
    */
   // eslint-disable-next-line complexity
-  _groupTags(tags) {
+  _groupTags(tags: Tag[]): Tag[][] {
     if (tags.length === 0) {
       return [];
     }
     const hasMessageBlocks = tags[0] instanceof Tags.TagMessageBlock;
-    const groups = [];
+    const groups: Tag[][] = [];
     let curGroup;
 
     for (let i of tags) {

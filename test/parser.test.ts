@@ -193,12 +193,12 @@ describe("Parser", () => {
     });
   });
 
-  it("parse fails if type is not valid", () => {
-    const parser = new Parser();
-    expect(() => parser.parse({ data: "", type: "invalid-type" })).toThrow(
-      '"invalid-type" is not a valid file type'
-    );
-  });
+  // it("parse fails if type is not valid", () => {
+  //   const parser = new Parser();
+  //   expect(() => parser.parse({ data: "", type: "invalid-type" })).toThrow(
+  //     '"invalid-type" is not a valid file type'
+  //   );
+  // });
 
   describe("Parser methods", () => {
     it("_splitAndNormalize", () => {

@@ -19,15 +19,16 @@ import BigNumber from "bignumber.js";
 import { Statement } from "./statement";
 import { Transaction } from "./transaction";
 import { FloorLimit, StatementNumber } from "./types";
-import tags from "./tags";
+import tags, { Tag } from "./tags";
+import { TaggedTemplateExpression } from "typescript";
 
 export class StatementVisitor {
-  tags: typeof tags.Tag[];
+  tags: Tag[];
   messageBlocks: any;
   transactions: Transaction[];
   informationToAccountOwner: string[];
-  message;
-  prevTag?: typeof tags.Tag;
+  message: string;
+  prevTag?: Tag;
   statementDate: Date;
   accountIdentification: string;
   statementNumber: StatementNumber;
@@ -52,7 +53,7 @@ export class StatementVisitor {
     this.tags = [];
   }
 
-  pushTag(tag) {
+  pushTag(tag: Tag) {
     this.tags.push(tag);
     if (!(tag instanceof tags.TagNonSwift)) {
       this.prevTag = tag;
@@ -87,7 +88,7 @@ export class StatementVisitor {
     return statement;
   }
 
-  visitMessageBlock(tag) {
+  visitMessageBlock(tag: Tag) {
     Object.entries(tag.fields).forEach(([key, value]) => {
       if (value && key !== "EOB") {
         this.messageBlocks[key] = { value };
@@ -96,12 +97,12 @@ export class StatementVisitor {
     this.pushTag(tag);
   }
 
-  visitAccountIdentification(tag) {
+  visitAccountIdentification(tag: Tag) {
     this.accountIdentification = tag.fields.accountIdentification;
     this.pushTag(tag);
   }
 
-  visitStatementNumber(tag) {
+  visitStatementNumber(tag: Tag) {
     this.statementNumber = {
       statement: tag.fields.statementNumber,
       sequence: tag.fields.sequenceNumber,
@@ -110,7 +111,7 @@ export class StatementVisitor {
     this.pushTag(tag);
   }
 
-  visitDebitAndCreditFloorLimit(tag) {
+  visitDebitAndCreditFloorLimit(tag: Tag) {
     if (!this.currency) {
       this.currency = tag.fields.currency;
     }
@@ -130,25 +131,25 @@ export class StatementVisitor {
     this.pushTag(tag);
   }
 
-  visitDateTimeIndication(tag) {
+  visitDateTimeIndication(tag: Tag) {
     this.statementDate = tag.fields.dateTimestamp;
     this.pushTag(tag);
   }
 
-  visitRelatedReference(tag) {
+  visitRelatedReference(tag: Tag) {
     this.relatedReference = tag.fields.relatedReference;
     this.pushTag(tag);
   }
 
-  visitTransactionReferenceNumber(tag) {
+  visitTransactionReferenceNumber(tag: Tag) {
     this.transactionReference = tag.fields.transactionReference;
     this.pushTag(tag);
   }
 
-  visitStatementLine(tag) {
+  visitStatementLine(tag: Tag) {
     this.transactions.push(
       new Transaction({
-        ...tag.fields,
+        ...(tag.fields as any),
         currency: this.currency,
         detailSegments: [],
       })
@@ -156,7 +157,7 @@ export class StatementVisitor {
     this.pushTag(tag);
   }
 
-  visitTransactionDetails(tag) {
+  visitTransactionDetails(tag: Tag) {
     if (this.prevTag instanceof tags.TagStatementLine) {
       this.lastTransaction.detailSegments.push(tag.fields.transactionDetails);
     } else {
@@ -165,37 +166,37 @@ export class StatementVisitor {
     this.pushTag(tag);
   }
 
-  visitOpeningBalance(tag) {
+  visitOpeningBalance(tag: Tag) {
     this.openingBalanceDate = tag.fields.date;
     this.openingBalance = tag.fields.amount;
     this.currency = tag.fields.currency;
     this.pushTag(tag);
   }
 
-  visitClosingBalance(tag) {
+  visitClosingBalance(tag: Tag) {
     this.statementDate = tag.fields.date;
     this.closingBalanceDate = tag.fields.date;
     this.closingBalance = tag.fields.amount;
     this.pushTag(tag);
   }
 
-  visitNumberAndSumOfEntries(tag) {
+  visitNumberAndSumOfEntries(tag: Tag) {
     this.pushTag(tag);
   }
 
-  visitForwardAvailableBalance(tag) {
+  visitForwardAvailableBalance(tag: Tag) {
     this.forwardAvailableBalanceDate = tag.fields.date;
     this.forwardAvailableBalance = tag.fields.amount;
     this.pushTag(tag);
   }
 
-  visitClosingAvailableBalance(tag) {
+  visitClosingAvailableBalance(tag: Tag) {
     this.closingAvailableBalanceDate = tag.fields.date;
     this.closingAvailableBalance = tag.fields.amount;
     this.pushTag(tag);
   }
 
-  visitNonSwift(tag) {
+  visitNonSwift(tag: Tag) {
     if (
       this.prevTag instanceof tags.TagStatementLine ||
       this.prevTag instanceof tags.TagTransactionDetails

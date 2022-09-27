@@ -16,9 +16,15 @@
  */
 import BigNumber from "bignumber.js";
 import { StatementVisitor } from "./statementVisitor";
-import Tags from "./tags";
+import Tags, { Tag } from "./tags";
 // eslint-disable-next-line complexity
-export function validateGroup({ group, groupNumber }) {
+export function validateGroup({
+  group,
+  groupNumber,
+}: {
+  group: Tag[];
+  groupNumber: number;
+}) {
   // Check mandatory tags
   const mandatoryTags = [
     Tags.TagTransactionReferenceNumber, //20
@@ -61,7 +67,7 @@ export function validateGroup({ group, groupNumber }) {
   }
 }
 
-export function buildStatement({ group }) {
+export function buildStatement({ group }: { group: Tag[] }) {
   const visitor = new StatementVisitor();
   group.forEach((tag) => tag.accept(visitor));
   return visitor.toStatement();

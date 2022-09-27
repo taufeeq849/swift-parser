@@ -226,7 +226,7 @@ describe("Tags", () => {
   });
   describe("Tags", () => {
     it("Tag and TagBalance are abstact", () => {
-      expect(() => new tags.Tag({})).toThrow(/Tag instances/);
+      expect(() => new tags.Tag("")).toThrow(/Tag instances/);
       expect(() => new tags.TagBalance("C160507EUR123,89")).toThrow(
         /TagBalance instances/
       );

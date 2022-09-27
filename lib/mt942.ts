@@ -16,8 +16,9 @@
  */
 
 import { StatementVisitor } from "./statementVisitor";
+import { Tag } from "./tags";
 
-export function buildStatement({ group }) {
+export function buildStatement({ group }: { group: Tag[] }) {
   const visitor = new StatementVisitor();
   group.forEach((tag) => tag.accept(visitor));
   return visitor.toStatement();
