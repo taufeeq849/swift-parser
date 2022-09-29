@@ -6,7 +6,7 @@ Statement Message][mt940] and [MT 942 Interim Transaction Report][mt942].
 ## Installation
 
 ```bash
-stitch-swiftmessageparser
+pnpm install stitch-swiftmessageparser
 ```
 
 ## Usage
