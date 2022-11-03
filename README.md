@@ -1,32 +1,32 @@
 # Centrapay SWIFT Parser
 
-SWIFT bank statement parser for JavaScript (ES2015). Supports [MT 940 Customer
-Statement Message][MT940] and [MT 942 Interim Transaction Report][MT942].
-
+SWIFT bank statement parser for JavaScript and Typescript (ES2015). Supports [MT 940 Customer
+Statement Message][mt940] and [MT 942 Interim Transaction Report][mt942].
 
 ## Installation
 
 ```bash
-npm install swiftmessageparser
+pnpm install stitch-swiftmessageparser
 ```
 
 ## Usage
 
 ```javascript
-const parser = require('swiftmessageparser');
+import parser from 'stitch-swiftmessageparser';
+import * as fs from 'fs';
+
 const statements = parser.parse({
   type: 'mt940',
-  data: fs.readFileSync(path, 'utf8'),
+  data: fs.readFileSync('./sample.txt', 'utf8'),
 });
 
-statements.forEach(stmt => {
-  console.log(stmt.statementDate, stmt.accountIdentification, stmt.number.statement);
-  stmt.transactions.forEach(txn => {
+statements.forEach((stmt) => {
+  console.log('stmt', stmt);
+  stmt.transactions.forEach((txn) => {
     console.log(txn.amount, txn.currency);
-  };
-};
+  });
+});
 ```
-
 
 ## CLI
 
@@ -35,7 +35,6 @@ This package also includes a CLI which parses a SWIFT file and outputs the resul
 ```bash
 swift-parse -t mt942 my-statement.txt
 ```
-
 
 ## API
 
@@ -55,16 +54,15 @@ are additionally validated for:
 **Params:**
 
 | Param    | Type    | Description                                           |
-|----------|---------|-------------------------------------------------------|
+| -------- | ------- | ----------------------------------------------------- |
 | data     | string  | raw SWIFT message text                                |
 | type     | string  | message format (mt940 or mt942)                       |
-| validate | boolean | *Optional* perform additional semantic error checking |
-
+| validate | boolean | _Optional_ perform additional semantic error checking |
 
 ### Statement
 
 | Field                       | Type      | Description                                                                |
-|-----------------------------|-----------|----------------------------------------------------------------------------|
+| --------------------------- | --------- | -------------------------------------------------------------------------- |
 | transactionReference        | string    | tag 20 reference                                                           |
 | relatedReference            | string    | tag 21 reference                                                           |
 | accountIdentification       | string    | tag 25 own bank account identification                                     |
@@ -85,11 +83,10 @@ are additionally validated for:
 | transactions                | array     | collection of transactions                                                 |
 | messageBlocks               | object    | statement message blocks, if present (EXPERIMENTAL)                        |
 
-
 ### Transaction
 
 | Field             | Type      | Description                                                            |
-|-------------------|-----------|------------------------------------------------------------------------|
+| ----------------- | --------- | ---------------------------------------------------------------------- |
 | date              | Date      | transaction date                                                       |
 | amount            | BigNumber | transaction amount (with sign, Credit+, Debit-)                        |
 | reversal          | Boolean   | transaction is a reversal                                              |
@@ -104,12 +101,12 @@ are additionally validated for:
 | structuredDetails | Object    | structured details if detected                                         |
 | nonSwift          | string    | content of NS tags associated with a transaction (after tags 61 or 86) |
 
-
 ### Structured Transaction Details
 
 The `transaction.structuredDetails` attribute can be used to access structured
-data from statement transaction details (SWIFT "86" tag).  The following
+data from statement transaction details (SWIFT "86" tag). The following
 structured detail formats are supported:
+
 - `'<sep>DD'`, where `<sep>` can be `'>'` or `'?'` and `DD` is two digits
 - `'/TAG/value'`, where `TAG` is 2 to 4 uppercase chars.
 
@@ -138,11 +135,9 @@ structured detail formats are supported:
 }
 ```
 
-
 ## History
 
 See [Changelog](./CHANGELOG.md)
-
 
 ## Legal
 
@@ -150,16 +145,13 @@ Copyright © 2015 [Alexander Tsybulsky][] and other contributors. Copyright © 2
 
 This software is licensed under Apache-2.0 License. Please see [LICENSE](/LICENSE) for details.
 
-
 ## Credits
 
 Forked from [a-fas/mt940][]. Originally inspired by [WoLpH/mt940][].
 
-
-
-[MT940]: https://www2.swift.com/knowledgecentre/publications/us9m_20190719/2.0?topic=mt940.htm
-[MT942]: https://www2.swift.com/knowledgecentre/publications/us9m_20190719/2.0?topic=mt942.htm
-[Centrapay]: https://centrapay.com/
-[Alexander Tsybulsky]: https://github.com/a-fas
+[mt940]: https://www2.swift.com/knowledgecentre/publications/us9m_20190719/2.0?topic=mt940.htm
+[mt942]: https://www2.swift.com/knowledgecentre/publications/us9m_20190719/2.0?topic=mt942.htm
+[centrapay]: https://centrapay.com/
+[alexander tsybulsky]: https://github.com/a-fas
 [a-fas/mt940]: https://github.com/a-fas/mt940js
-[WoLpH/mt940]: https://github.com/WoLpH/mt940
+[wolph/mt940]: https://github.com/WoLpH/mt940
